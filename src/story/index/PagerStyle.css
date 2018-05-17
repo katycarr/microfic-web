@@ -1,0 +1,12 @@
+button.paginate {
+  position: fixed;
+  top: 50%;
+}
+
+button.paginate.forward {
+  right: 0;
+}
+
+button.paginate.backward {
+  left: 0;
+}
