@@ -10,3 +10,9 @@ button.paginate.forward {
 button.paginate.backward {
   left: 0;
 }
+
+div.story-container {
+  width: 80%;
+  margin: auto;
+  height: 100vh;
+}

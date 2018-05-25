@@ -1,26 +1,22 @@
 import React from 'react'
 import { Container } from 'semantic-ui-react'
-
-const styles = {
-  container: {
-    width: '80%',
-    margin: 'auto',
-    height: '100vh',
-  }
-}
-
+import { convertFromRaw, EditorState, Editor } from 'draft-js'
 
 class StoryIndexView extends React.Component {
-  handlePress = () => {
-
-  }
 
   render() {
+    console.log(this.props.story.id)
+    let story = <Editor
+        editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.story.story)))}
+        readOnly={true}
+        />
     return (
-        <Container style={styles.container}>
+        <Container>
           <h1>{this.props.story.title}</h1>
           <p>{this.props.story.summary}</p>
-          <div>{this.props.story.story}</div>
+          <div className='story-container'>
+            {story}
+          </div>
           <h5>By {this.props.story.user.username}</h5>
         </Container>
     )

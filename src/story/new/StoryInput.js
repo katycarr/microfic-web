@@ -1,44 +1,46 @@
 import React from 'react'
-import { EditorState } from 'draft-js'
 import Editor from 'draft-js-plugins-editor'
+import 'draft-js/dist/Draft.css'
 import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
 import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
+import './EditorStyle.css'
+import {Form} from 'semantic-ui-react'
+import {updateEditor, clearEditor} from '../../actions/editor'
+import {connect} from 'react-redux'
 
 const inlineToolbarPlugin = createInlineToolbarPlugin();
 const { InlineToolbar } = inlineToolbarPlugin;
 
-const style = {
-  editor: {
-    height: '300px',
-    border: '1px solid black',
-  }
-}
+
 class StoryInput extends React.Component {
   state = {
-    editorState: EditorState.createEmpty()
+    focused: false
   }
   onChange = editorState => {
-    this.setState({editorState})
+    this.props.updateEditor(editorState)
   }
-
-  focus = () => {
-    this.editor.focus();
-  };
-
 
   render() {
     return (
-      <div style={style.editor} onClick={this.focus}>
+      <Form.Field className={`editor-wrapper ${this.state.focused ? 'focused' : 'blurred'}`} onClick={this.focus}>
         <Editor
-          editorState={this.state.editorState}
+          placeholder='Story'
+          onFocus={() => this.setState({ focused: true })}
+          editorState={this.props.editorState}
           onChange={this.onChange}
           plugins={[inlineToolbarPlugin]}
-          ref={(element) => { this.editor = element; }}
+          spellCheck={true}
           />
         <InlineToolbar />
-      </div>
+      </Form.Field>
     )
   }
 }
 
-export default StoryInput
+function mapStateToProps(state) {
+  return {
+    editorState: state.editorStateReducer.story
+  }
+}
+
+export default connect(mapStateToProps, {updateEditor, clearEditor})(StoryInput)

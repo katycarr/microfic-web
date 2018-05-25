@@ -2,18 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { createFic } from '../../actions/fics'
 import { Form, TextArea, Button } from 'semantic-ui-react'
-import StoryInput from './StoryInput'
+import ModalWrapper from './ModalWrapper'
 
 class NewStoryForm extends React.Component {
   state = {
     title: '',
     summary: '',
-    story: ''
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.createFic(this.state)
+    this.props.createFic(this.state, this.props.editorState)
   }
 
   handleChange = e => {
@@ -22,10 +21,13 @@ class NewStoryForm extends React.Component {
     })
   }
 
+  saveDraft = () => {
+    this.props.createFic(this.state, this.props.editorState, true)
+  }
+
   render() {
     return (
-
-      <Form onSubmit={this.handleSubmit}>
+      <Form >
         <input
           type='text'
           placeholder='Title'
@@ -40,21 +42,20 @@ class NewStoryForm extends React.Component {
           name='summary'
           autoHeight
           />
-        {// <TextArea
-        //   placeholder='Story'
-        //   value={this.state.story}
-        //   onChange={this.handleChange}
-        //   name='story'
-        //   autoHeight
-        //   style={{minHeight: '300px'}}
-        //   />
-      }
-        <StoryInput />
-        <Button type='submit'>Submit</Button>
+        <ModalWrapper />
+
+        <Button onClick={this.handleSubmit}>Publish</Button>
+        <Button onClick={this.saveDraft}>Save Draft</Button>
       </Form>
     )
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    editorState: state.editorStateReducer.story
+  }
+}
 
-export default connect(null, {createFic})(NewStoryForm)
+
+export default connect(mapStateToProps, {createFic})(NewStoryForm)

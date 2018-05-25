@@ -1,3 +1,5 @@
+import { convertToRaw } from 'draft-js'
+
 export const fetchStories = () => {
   return (dispatch) => {
     dispatch({
@@ -14,7 +16,8 @@ export const fetchStories = () => {
   }
 }
 
-export const createFic = ({title, summary, story}, token) => {
+export const createFic = ({title, summary}, editorState, draft=false) => {
+  const story = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
   return(dispatch) => {
     dispatch({
       type: 'CREATE_FIC_START'
@@ -26,7 +29,7 @@ export const createFic = ({title, summary, story}, token) => {
         Accept:'application/json',
         'Authorization': localStorage.getItem('token')
       },
-      body: JSON.stringify({fic: {title, summary, story}})
+      body: JSON.stringify({fic: {title, summary, story, 'draft?':draft}})
     }
     fetch('http://localhost:3000/fics', options)
       .then(res => res.json())
