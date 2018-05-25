@@ -8,10 +8,12 @@ class ModalWrapper extends React.Component {
   }
 
   render() {
+    const className = this.props.isOpen ? '' : 'grow'
     return (
-      <div>
+      <div className={className}>
         <Modal
-          trigger={<Button>Modal</Button>}
+          size='large'
+          trigger={<Button icon='maximize' className='modal-button' />}
           onOpen={() => this.setState({isOpen:true})}
           onClose={() => this.setState({isOpen:false})}>
           <StoryInput />

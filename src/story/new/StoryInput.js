@@ -22,7 +22,10 @@ class StoryInput extends React.Component {
 
   render() {
     return (
-      <Form.Field className={`editor-wrapper ${this.state.focused ? 'focused' : 'blurred'}`} onClick={this.focus}>
+      <Form.Field
+        className={`form-field editor-wrapper ${this.state.focused ? 'focused' : 'blurred'}`}
+        onClick={this.focus}
+        >
         <Editor
           placeholder='Story'
           onFocus={() => this.setState({ focused: true })}

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { createFic } from '../../actions/fics'
 import { Form, TextArea, Button } from 'semantic-ui-react'
 import ModalWrapper from './ModalWrapper'
+import './Form.css'
 
 class NewStoryForm extends React.Component {
   state = {
@@ -27,8 +28,9 @@ class NewStoryForm extends React.Component {
 
   render() {
     return (
-      <Form >
+      <Form>
         <input
+          className='form-field'
           type='text'
           placeholder='Title'
           name='title'
@@ -36,6 +38,7 @@ class NewStoryForm extends React.Component {
           onChange={this.handleChange}
           />
         <TextArea
+          className='form-field'
           placeholder='Summary'
           value={this.state.summary}
           onChange={this.handleChange}
@@ -43,9 +46,10 @@ class NewStoryForm extends React.Component {
           autoHeight
           />
         <ModalWrapper />
-
-        <Button onClick={this.handleSubmit}>Publish</Button>
-        <Button onClick={this.saveDraft}>Save Draft</Button>
+        <div className='button-container'>
+          <Button onClick={this.handleSubmit}>Publish</Button>
+          <Button onClick={this.saveDraft}>Save Draft</Button>
+        </div>
       </Form>
     )
   }

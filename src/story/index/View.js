@@ -5,7 +5,6 @@ import { convertFromRaw, EditorState, Editor } from 'draft-js'
 class StoryIndexView extends React.Component {
 
   render() {
-    console.log(this.props.story.id)
     let story = <Editor
         editorState={EditorState.createWithContent(convertFromRaw(JSON.parse(this.props.story.story)))}
         readOnly={true}

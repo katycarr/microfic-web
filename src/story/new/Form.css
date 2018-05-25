@@ -1,0 +1,30 @@
+.form {
+  display:flex;
+  flex-direction: column;
+  height: calc(100vh - 60px)
+}
+
+div.grow {
+  flex-grow:5;
+}
+
+form.ui.form input.form-field, form.ui.form textarea.form-field, form.ui.form div.form-field{
+  border: none;
+}
+
+button.ui.button.modal-button {
+  width:auto;
+  position:absolute;
+  right:0;
+  background-color: white;
+  z-index:2;
+}
+
+div.large.modal {
+  height:calc(100% - 2rem);
+}
+
+div.modal div.form-field.editor-wrapper {
+  height:100%;
+  overflow-y:scroll;
+}

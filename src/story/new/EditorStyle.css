@@ -8,11 +8,10 @@
   box-shadow: 0 0 0 0 transparent inset;
   font-size: 1em;
   line-height: 1.21428571em;
-  height:300px;
-  overflow-y: scroll;
   font-family: sans-serif;
   font-weight:400;
   transition: color .1s ease,border-color .1s ease;
+  flex:1;
 }
 
 .editor-wrapper.focused {
